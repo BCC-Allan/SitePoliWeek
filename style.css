@@ -89,7 +89,6 @@ body {
   padding: 0px;
 }
 #target {
-  height: 100px;
   z-index: 1;
   cursor: pointer;
 

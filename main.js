@@ -1,6 +1,7 @@
 import "./style.css";
 
 import $ from "jquery";
+import { debounce } from "debounce";
 // export for others scripts to use
 window.$ = $;
 
@@ -10,18 +11,16 @@ function addButtonBindings(idFunctionMap) {
   }
 }
 
-
 $(window).on("load", function () {
   const buttonMap = {
     "#promptButton": startPlaying,
     "#target": find,
-    '#lost': giveUp,
-    '#mute': toggleMute,
-    '#instructions': viewInstructions,
+    "#lost": giveUp,
+    "#mute": toggleMute,
+    "#instructions": viewInstructions,
   };
   addButtonBindings(buttonMap);
 });
-
 
 var AudioContext;
 var audioCtx;
@@ -50,7 +49,6 @@ var mouseY = 0;
 // global states
 var cocogoatFound = false;
 var audioMuted = false;
-var easyMode = true;
 var gameStarted = false; // allows finding of cocogoat and governs instruction behavior
 
 //helper functions for finding distances (used when adjusting audio)
@@ -136,12 +134,12 @@ function find() {
 
 //always running in the background, playing audio hints. Doesn't play if cocogoat is found.
 function playHint() {
+  // audioElement.currentTime = 0;
   //set volume to a value inversely proportional to the distance between the cursor and cocogoat, up to a maximum volume.
   if (!audioMuted) {
     gainNode.gain.value = Math.min(
       1,
-      70 /
-        calculateDistance(document.getElementById("target"), mouseX, mouseY)
+      70 / calculateDistance(document.getElementById("target"), mouseX, mouseY)
     );
   }
   //set stereo pan based on whether cocogoat is left or right of the cursor position, scaled by width of window
@@ -181,6 +179,7 @@ function startPlaying() {
   console.log("AudioContext started with user interaction.");
   gameStarted = true;
   hide();
+  startRapaizzzLoop();
 }
 
 //when the user clicks give up, make cocogoat somewhat visible but do not actually "find" until they click cocogoat.
@@ -199,20 +198,6 @@ function toggleMute() {
   } else {
     document.getElementById("mute").textContent = "Mute";
     document.getElementById("mute").style.color = "MediumSlateBlue";
-  }
-}
-
-//toggles easy mode: in easy mode the cursor style changes when hovering over invisible cocogoat
-function toggleCursor() {
-  easyMode = !easyMode;
-  if (easyMode) {
-    document.getElementById("cover").style.cursor = "pointer";
-    document.getElementById("easy").textContent = "Disable Easy Mode";
-    document.getElementById("easy").style.color = "Crimson";
-  } else {
-    document.getElementById("cover").style.cursor = "default";
-    document.getElementById("easy").textContent = "Enable Easy Mode";
-    document.getElementById("easy").style.color = "MediumSlateBlue";
   }
 }
 
@@ -253,11 +238,22 @@ function updateNumberOfCocogoatsFound() {
   }
 }
 
+
+function startRapaizzzLoop() {
+  audioElement.playbackRate=1.5;
+  audioElement.addEventListener('ended', playHint);
+}
+
+
 //check if user has previously found cocogoats, update banner (runs at page start).
 updateNumberOfCocogoatsFound();
 //set up audio path
 track.connect(panner).connect(gainNode).connect(audioCtx.destination);
 //whenever hint audio finishes, play more hint audio (effectively loop the hint).
-audioElement.addEventListener("ended", playHint);
+
+window.addEventListener('mousemove', debounce(playHint, 300));
+window.addEventListener('mousemove', debounce(playHint, 300));
+
+
 //always be tracking where the mouse is because apparently there's no way to do this without events
 document.getElementById("space").addEventListener("mousemove", handleMouseMove);
