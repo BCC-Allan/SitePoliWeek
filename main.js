@@ -207,11 +207,11 @@ function toggleCursor() {
   easyMode = !easyMode;
   if (easyMode) {
     document.getElementById("cover").style.cursor = "pointer";
-    document.getElementById("easy").textContent = "Disable Easy Mode";
+    document.getElementById("easy").textContent = "Desabilitar Modo Fácil";
     document.getElementById("easy").style.color = "Crimson";
   } else {
     document.getElementById("cover").style.cursor = "default";
-    document.getElementById("easy").textContent = "Enable Easy Mode";
+    document.getElementById("easy").textContent = "Habilitar Modo Fácil";
     document.getElementById("easy").style.color = "MediumSlateBlue";
   }
 }
@@ -224,7 +224,7 @@ function viewInstructions() {
     document.getElementById("promptButton").style.visibility = "hidden";
   } else {
     let instructions =
-      'There is an invisible cocogoat hidden on this page. The goal is to click on the invisible cocogoat.<br><br>The audio cues become louder as the cursor gets closer to cocogoat. The sound will come from the direction where the cocogoat is, relative to the cursor.<br><br>When cocogoat is found, it will be moved to a random position and hidden again after a short delay.<br><br>Enabling Easy Mode makes the cursor change when hovering over the cocogoat.<br><br>Click "Give Up" to instantly see cocogoat\'s location.';
+      'Há um João das Neves invisível escondido na página. O objetivo é clicar no João das Neves invisível. <br> <br> As pistas de áudio ficam mais altas à medida que o cursor do mouse se aproxima do João das Neves. O som virá da direção onde o João das Neves está, em relação ao cursor. <br> <br> Quando o João das Neves for encontrado, ele será movido para uma posição aleatória e oculto novamente após um pequeno atraso. <br> <br> Habilitar o Modo Fácil faz com que o cursor mude ao passar o mouse sobre o João das Neves. <br> <br> Clique em "Desistir" se você aceita que foi derrotado pelo do João das Neves.';
     document.getElementById("promptButton").innerHTML = instructions;
     document.getElementById("promptButton").style.visibility = "visible";
     document.getElementById("promptButton").style.fontSize = "1.2em";
@@ -241,7 +241,7 @@ function updateNumberOfCocogoatsFound() {
     ) {
       //if number is stored, set counter to match.
       document.getElementById("counter").textContent =
-        "Cocogoats found: " + Number(localStorage.getItem("cocogoatCount"));
+        "Joães das Neves Encontrados: " + Number(localStorage.getItem("cocogoatCount"));
     } else {
       //if no number is stored, set counter to 0
       localStorage.setItem("cocogoatCount", 0);
