@@ -6,3 +6,98 @@
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body {
+  font-family: Georgia, serif;
+  color: MediumSlateBlue;
+}
+.navigation {
+  font-size: 14px;
+  border: 3px solid MediumSlateBlue;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 200;
+}
+.navigation:hover {
+  border: 3px solid MediumBlue;
+}
+#easy {
+  float: right;
+  color: Crimson;
+}
+#mute {
+  float: left;
+  margin: 0px 10px;
+}
+#instructions {
+  float: left;
+  margin: 0px 10px;
+  visibility: hidden;
+}
+#counter {
+  float: right;
+  cursor: default;
+  visibility: hidden;
+  border: 3px solid MediumSlateBlue;
+}
+#lost {
+  bottom: 10px;
+  right: 10px;
+  visibility: hidden;
+  position: absolute;
+}
+#back {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+}
+#controls {
+  top: 0px;
+  right: 0px;
+  border: none;
+  position: absolute;
+  cursor: default;
+}
+#info {
+  top: 0px;
+  left: 0px;
+  border: none;
+  position: absolute;
+  cursor: default;
+}
+#promptButton {
+  margin: auto;
+  margin-top: 10%;
+  width: 40%;
+  border: 3px solid MediumSlateBlue;
+  padding: 50px;
+  font-size: 2em;
+  text-align: center;
+  cursor: pointer;
+}
+.hider {
+  position: absolute;
+}
+#space {
+  height: 100%;
+  width: 100%;
+}
+body {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+#target {
+  height: 100px;
+  z-index: 1;
+  cursor: pointer;
+
+}
+#cover {
+  height: 100px;
+  width: 100px;
+  z-index: 100;
+  opacity: 1;
+  cursor: pointer;
+}

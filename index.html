@@ -8,7 +8,31 @@
   </head>
   <body>
     <div id="app">
-      <h1>Teste</h1>
+      <div id="space" class="hider">
+        <img id="target" src="joao_das_neves.png" />
+        <div id="cover" class="hider"></div>
+        <div id="promptButton">
+          Cocogoat. Go find it.
+          <br /><br />
+          Use headphones and follow the audio cues.
+        </div>
+      </div>
+
+      <a href="https://cocogo.at"
+        ><div id="back" class="navigation">Return to Cocogo.at</div></a
+      >
+      <div id="lost" class="navigation" >Give up?</div>
+      <div id="controls" class="navigation">
+        <div id="mute" class="navigation">Mute</div>
+      </div>
+      <div id="info" class="navigation">
+        <div id="counter" class="navigation">Cocogoats found: 0</div>
+        <div id="instructions" class="navigation">
+          Instructions
+        </div>
+      </div>
+
+      <audio src="/qiqi.mp3"></audio>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
