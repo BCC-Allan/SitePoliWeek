@@ -239,7 +239,7 @@ function updateNumberOfCocogoatsFound() {
     } else {
       //if no number is stored, set counter to 0
       localStorage.setItem("cocogoatCount", 0);
-      document.getElementById("counter").textContent = "Cocogoats found: 0";
+      document.getElementById("counter").textContent = "Joães das Neves Encontrados: 0";
     }
   } else {
     //the user doesn't need to know about the useless number they're missing out on. Hide the cocogoat counter.
