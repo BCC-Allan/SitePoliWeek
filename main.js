@@ -2,7 +2,6 @@ import "./style.css";
 
 import $ from "jquery";
 import { debounce } from "debounce";
-import fibo from "./fibo.js";
 // export for others scripts to use
 window.$ = $;
 
@@ -77,30 +76,23 @@ function hide() {
   //hide cocogoat
   document.getElementById("target").style.opacity = 0;
   //resize cocogoat
-  var cocogoatSize =
-    1.8 *
-    0.071 *
-    Math.sqrt(
-      document.getElementById("space").clientHeight *
-        document.getElementById("space").clientWidth
-    );
-  document.getElementById("target").style.clientHeight = cocogoatSize + "px";
-  //resize empty div covering cocogoat
-  document.getElementById("cover").style.clientHeight = cocogoatSize + "px";
-  document.getElementById("cover").style.clientWidth = cocogoatSize + "px";
+  var cocogoatSize = Math.sqrt(
+    document.getElementById("target").clientHeight *
+      document.getElementById("target").clientWidth
+  );
+  // document.getElementById("target").style.clientHeight = cocogoatSize + "px";
+  // //resize empty div covering cocogoat
+  // document.getElementById("cover").style.clientHeight = cocogoatSize + "px";
   //move cocogoat to random location
-  var x = Math.floor(
-    Math.random() *
-      (document.getElementById("space").clientWidth - cocogoatSize)
-  );
-  var y = Math.floor(
-    Math.random() *
-      (document.getElementById("space").clientHeight - cocogoatSize)
-  );
-  document.getElementById("target").style.marginLeft = x + "px";
-  document.getElementById("target").style.marginTop = y + "px";
-  document.getElementById("cover").style.marginLeft = x + "px";
-  document.getElementById("cover").style.marginTop = y + "px";
+
+  const x = getRandomIntInclusive(0, 100);
+  const y = getRandomIntInclusive(0, 100);
+
+  const left = getRandomIntInclusive(0, 50);
+
+  $("#target").css("transform", `translate(-${x}%, -${y}%)`);
+  $("#target").css("left", `${left}%`);
+  $("#target").css("position", `absolute`);
   //keep track of whether user has found cocogoat
   cocogoatFound = false;
   //start playing hint audio
@@ -130,8 +122,23 @@ function find() {
     document.getElementById("target").style.visibility = "visible";
     document.getElementById("target").style.opacity = 1;
 
-    fibo();
+
+    setTimeout(hide, 2000);
+    setTimeout(citacao, 1000);
+    centerEl($("#target"));
+    //increment and update cocogoat counter
+    updateNumberOfCocogoatsFound();
   }
+}
+
+function citacao() {
+  const frases = [
+    "Se valorizamos a nossa liberdade, podemos mantê-la e defendê-la. \n-Richard Stallman",
+    "Liberdade não é escolher quem amar. É não amar ninguém. \n-Richard Stallman",
+    "Nós só podemos ver um pouco do futuro, mas o suficiente para perceber que há muito a fazer. \n-Alan Turing",
+  ];
+  const frase = frases[Math.floor((Math.random()*frases.length))];
+  alert("Você achou ele! \n\n" + frase)
 }
 
 //always running in the background, playing audio hints. Doesn't play if cocogoat is found.
@@ -186,8 +193,7 @@ function startPlaying() {
 
 //when the user clicks give up, make cocogoat somewhat visible but do not actually "find" until they click cocogoat.
 function giveUp() {
-  document.getElementById("target").style.visibility = "visible";
-  document.getElementById("target").style.opacity = 0.15;
+  document.getElementById("target").style.opacity = 1;
 }
 
 //lets the user mute audio. Visually updates mute button.
@@ -244,6 +250,20 @@ function updateNumberOfCocogoatsFound() {
 function startRapaizzzLoop() {
   audioElement.playbackRate = 1.5;
   audioElement.addEventListener("ended", playHint);
+}
+
+function centerEl(el) {
+  el.addClass("center");
+  el.css("margin-right", "");
+  el.css("margin-left", "");
+  el.css("margin-top", "");
+  el.css("margin-botton", "");
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; // max & min both included
 }
 
 //check if user has previously found cocogoats, update banner (runs at page start).

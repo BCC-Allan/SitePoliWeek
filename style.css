@@ -100,3 +100,9 @@ body {
   opacity: 1;
   cursor: pointer;
 }
+
+
+.center {
+  position: absolute;
+  transform: translate(-50%, -50%); /* Yep! */
+}
