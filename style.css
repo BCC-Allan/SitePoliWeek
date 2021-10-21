@@ -89,10 +89,10 @@ body {
   padding: 0px;
 }
 #target {
-  z-index: 1;
+  z-index: 999;
   cursor: pointer;
-
 }
+
 #cover {
   height: 100px;
   width: 100px;
